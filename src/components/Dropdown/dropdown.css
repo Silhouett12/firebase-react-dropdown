@@ -1,0 +1,16 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.form-control {
+  width: 400px;
+}
+.list-group-item , .list-group-item-action {
+  width: 400px;
+
+}
