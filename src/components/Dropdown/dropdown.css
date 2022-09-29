@@ -3,8 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   width: 100%;
+  padding-top: 10%;
 }
 
 .form-control {
@@ -14,17 +14,22 @@
   width: 300px;
 }
 .list-group-item-action:first-child {
-  background-color: rgba(208, 71, 71, 0.205);
+  background-color: rgba(18, 68, 160, 0.443);
 }
 .scroll-list {
+  display: flex;
   height: 300px;
 	width: 300px;
 	border: 1px solid #ddd;
 	background: #f1f1f1;
   overflow-y: scroll;
+  overflow: hidden;
+}
+.scroll-list-hidden {
+  display: none;
 }
 .modal {
-  padding-top: 20vh;
+  padding-top: 10vh;
 }
 form {
   display: flex;
@@ -33,7 +38,7 @@ form {
   justify-content: center;
 }
 input {
-  -moz-appearance: none;
+  width: 300px;
 }
 .create-button {
   background-color: rgb(136, 35, 35);

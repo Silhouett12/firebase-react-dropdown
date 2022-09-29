@@ -9,8 +9,20 @@ import { Button, Modal } from "react-bootstrap";
 
 const DropDown = () => {
 
+ 
+
+
   // DATABASE INFO
   const [state, setState] = useState([]);
+  const [search, setSearch] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [nombre, setNombre] = useState("");
+  const [razón, setRazón] = useState("");
+  const [teléfono, setTeléfono] = useState("");
+  const [nit, setNit] = useState("");
+  const [código, setCódigo] = useState("");
 
   const getCompanies = async () => {
     let latestDoc = null;
@@ -33,10 +45,6 @@ const DropDown = () => {
   };
 
   //SEARCH/PAGINATION
-  const [search, setSearch] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const [hasMore, setHasMore] = useState();
-  const [pageNumber, setPageNumber] = useState(1);
 
   const observer = useRef();
   const lastName = useCallback(
@@ -68,11 +76,7 @@ const DropDown = () => {
   
   //FORM HANDLERS / METODO POST A FIREBASE
 
-  const [nombre, setNombre] = useState("");
-  const [razón, setRazón] = useState("");
-  const [teléfono, setTeléfono] = useState("");
-  const [nit, setNit] = useState("");
-  const [código, setCódigo] = useState("");
+  
 
   const postCollection = collection(db, "companies");
 
@@ -99,8 +103,8 @@ const DropDown = () => {
   useEffect(() => {
     getCompanies();
     console.log("hubo un cambio");
+    console.log(pageNumber)
   }, [pageNumber]); //eslint-disable-line
-
 
   //RENDERIZADO
   return (
@@ -113,7 +117,7 @@ const DropDown = () => {
         value={search}
         onChange={handleSearch}
       />
-      <div className="scroll-list">
+      <div className= {search? "scroll-list" : "scroll-list-hidden"}>
         <ul className="list-group">
           <li
             type="button"
@@ -149,7 +153,7 @@ const DropDown = () => {
           })}
         </ul>
       </div>
-      <Modal show={openModal} onHide={() => handleModal()} className="modal">
+      <Modal show={openModal} onHide={() => handleModal()} className="modal" >
         <Modal.Header closeButton="modal-header">Company</Modal.Header>
         <form onSubmit={store}>
           <div className="md-form mb-5">
