@@ -23,12 +23,12 @@
 
 .scroll-list {
   display: flex;
-  height: 300px;
+  height: 200px;
 	width: 300px;
 	border: 1px solid #ddd;
 	background: #f1f1f1;
   overflow-y: scroll;
-  overflow: hidden;
+
 }
 .scroll-list-hidden {
   display: none;
