@@ -15,6 +15,9 @@ import "./dropdown.css";
 // import { dataBase } from "../../json/data";
 import { Button, Modal } from "react-bootstrap";
 
+
+
+
 const DropDown = () => {
   // STATES
   const [state, setState] = useState([]);
@@ -26,54 +29,61 @@ const DropDown = () => {
   const [teléfono, setTeléfono] = useState("");
   const [nit, setNit] = useState("");
   const [código, setCódigo] = useState("");
-  const [lastVisible, setLastVisible] = useState(null);
-
-
   
-  const observer = useRef();
-  const closenotif = () => document.getElementById("notif").remove();
+  
   const getCompanies = async () => {
     const companyCollection = query(
-      collection(db, "companies"),
-      orderBy("razón_social"),
-      startAfter(lastVisible || 0),
-      limit(20)
-    );
+          collection(db, "companies"))
     const getData = await getDocs(companyCollection);
-    if (state.length < 1) {
-      setState(
-        ...state,
-        getData.docs.map((el) => el.data())
-      );
-      setLastVisible(getData.docs[getData.docs.length - 1]);
-    } else {
-      setState((prevState) => [
-        ...prevState.concat(getData.docs.map((el) => el.data())),
-      ]);
-      setLastVisible(getData.docs[getData.docs.length - 1]);
-    }
-    if (getData.empty) {
-      closenotif();
-    }
-  };
+    setState( ...state, getData.docs.map((el) => el.data()))       
+  }
+
 
   
-  //SCROLL 
-  const lastName = useCallback(
-    (node) => {
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && state.length > 1) {
-          setPageNumber((e) => e + 1);
-        }
-      }
-      );
-      if (node) observer.current.observe(node);
-      else observer.current.disconnect(true);
+  //SCROLL
+  // const [lastVisible, setLastVisible] = useState(null);
+  // const closenotif = () => document.getElementById("notif").remove(); 
+  // const observer = useRef(null);
+  // const getCompanies = async () => {
+    //   const companyCollection = query(
+    //     collection(db, "companies"),
+    //     orderBy("razón_social"),
+    //     startAfter(lastVisible || 0),
+    //     limit(20)
+    //   );
+    //   const getData = await getDocs(companyCollection);
+    //   if (state.length < 1) {
+    //     setState(
+    //       ...state,
+    //       getData.docs.map((el) => el.data())
+    //     );
+    //     setLastVisible(getData.docs[getData.docs.length - 1]);
+    //   } else {
+    //     setState((prevState) => [
+    //       ...prevState.concat(getData.docs.map((el) => el.data())),
+    //     ]);
+    //     setLastVisible(getData.docs[getData.docs.length - 1]);
+    //   }
+    //   if (getData.empty) {
+    //     closenotif();
+    //   }
+    // };  
+
+  // const lastName = useCallback(
+  //   (node) => {
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting && state.length > 1) {
+  //         setPageNumber((e) => e + 1);
+  //       }
+  //     }
+  //     );
+  //     if (node) observer.current.observe(node);
+  //     else observer.current.disconnect(true);
       
-    },
-    [state]
-  );
+  //   },
+  //   [state]
+  // );
 
   //FORM HANDLERS / METODO POST A FIREBASE
 
@@ -88,8 +98,8 @@ const DropDown = () => {
       teléfono,
       código,
     });
+    setPageNumber(e => e + 1)
     setOpenModal(!openModal);
-    
   };
 
   const handleModal = () => {
@@ -104,7 +114,11 @@ const DropDown = () => {
       return x.nombre.toLowerCase().includes(term) || !term;
     };
   }
- //
+ 
+ 
+  //USE EFFECT
+
+
   useEffect(() => {
     getCompanies();
     
@@ -122,7 +136,7 @@ const DropDown = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <div className={"scroll-list"}>
+        <div className={search? "scroll-list" : "scroll-list-hidden"}>
           <ul className="list-group">
             <li
               type="button"
@@ -143,18 +157,6 @@ const DropDown = () => {
                 </li>
               );
             })}
-            <li
-              ref={lastName}
-              type="button"
-              id="notif"
-              className={
-                !search
-                  ? "list-group-item list-group-item-action"
-                  : "hidden-ref"
-              }
-            >
-              Loading...
-            </li>
           </ul>
         </div>
       </div>
