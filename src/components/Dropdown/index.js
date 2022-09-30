@@ -16,7 +16,7 @@ import "./dropdown.css";
 import { Button, Modal } from "react-bootstrap";
 
 const DropDown = () => {
-  // DATABASE INFO
+  // STATES
   const [state, setState] = useState([]);
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -28,10 +28,11 @@ const DropDown = () => {
   const [código, setCódigo] = useState("");
   const [lastVisible, setLastVisible] = useState(null);
 
-  const observer = useRef();
 
-  const getCompanies = async () => {
   
+  const observer = useRef();
+  const closenotif = () => document.getElementById("notif").remove();
+  const getCompanies = async () => {
     const companyCollection = query(
       collection(db, "companies"),
       orderBy("razón_social"),
@@ -39,42 +40,41 @@ const DropDown = () => {
       limit(20)
     );
     const getData = await getDocs(companyCollection);
-      if (state.length < 1) {setState(
-      ...state, getData.docs.map((el) => el.data()));
-     
-      }
-      if (state.length < 60){setState((prevState) => ([...prevState.concat(getData.docs.map((el) => el.data()))
-
-     ]))}
-      else {return state}
+    if (state.length < 1) {
+      setState(
+        ...state,
+        getData.docs.map((el) => el.data())
+      );
+      setLastVisible(getData.docs[getData.docs.length - 1]);
+    } else {
+      setState((prevState) => [
+        ...prevState.concat(getData.docs.map((el) => el.data())),
+      ]);
+      setLastVisible(getData.docs[getData.docs.length - 1]);
+    }
+    if (getData.empty) {
+      closenotif();
+    }
   };
 
-  //SEARCH/PAGINATION
-
+  
+  //SCROLL 
   const lastName = useCallback(
     (node) => {
-      if(observer.current) observer.current.disconnect()
+      if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && state.length > 1) {
-         setPageNumber(e => e + 1)
+          setPageNumber((e) => e + 1);
         }
-      });
+      }
+      );
       if (node) observer.current.observe(node);
+      else observer.current.disconnect(true);
+      
     },
     [state]
   );
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-    setPageNumber(1);
-    setNombre(e.target.value);
-  };
-
-  const results = !search
-    ? state
-    : state.filter((dato) =>
-        dato.nombre.toLowerCase().includes(search.toLocaleLowerCase())
-      );
   //FORM HANDLERS / METODO POST A FIREBASE
 
   const postCollection = collection(db, "companies");
@@ -89,18 +89,25 @@ const DropDown = () => {
       código,
     });
     setOpenModal(!openModal);
-    console.log(e);
+    
   };
 
   const handleModal = () => {
     setOpenModal(!openModal);
+    setNombre(search)
   };
 
-  
 
+  //SEARCH
+  function searchingTerm(term) {
+    return function (x) {
+      return x.nombre.toLowerCase().includes(term) || !term;
+    };
+  }
+ //
   useEffect(() => {
     getCompanies();
-    console.log("hubo un cambio");
+    
   }, [pageNumber]); //eslint-disable-line
 
   //RENDERIZADO
@@ -113,7 +120,7 @@ const DropDown = () => {
           className="form-control"
           placeholder="Search"
           value={search}
-          onChange={handleSearch}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <div className={"scroll-list"}>
           <ul className="list-group">
@@ -125,37 +132,35 @@ const DropDown = () => {
             >
               Create
             </li>
-            {results.map((el, index) => {
-              if (results.length === index + 1) {
-                return (
-                  <li
-                    type="button"
-                    ref={lastName}
-                    className="list-group-item list-group-item-action"
-                    key={el.código}
-                  >
-                    {el.nombre}
-                  </li>
-                );
-              } else {
-                return (
-                  <li
-                    type="button"
-                    className="list-group-item list-group-item-action"
-                    key={el.código}
-                  >
-                    {el.nombre}
-                  </li>
-                );
-              }
+            {state?.filter(searchingTerm(search)).map((el) => {
+              return (
+                <li
+                  type="button"
+                  className="list-group-item list-group-item-action"
+                  key={el.código}
+                >
+                  {el.nombre}
+                </li>
+              );
             })}
-            {/* <button onClick={() => moreClicks()}>click</button> */}
+            <li
+              ref={lastName}
+              type="button"
+              id="notif"
+              className={
+                !search
+                  ? "list-group-item list-group-item-action"
+                  : "hidden-ref"
+              }
+            >
+              Loading...
+            </li>
           </ul>
         </div>
       </div>
       <Modal show={openModal} onHide={() => handleModal()} className="modal">
         <Modal.Header closeButton="modal-header">
-          <h1>Company</h1>
+          <h1>Empresa</h1>
         </Modal.Header>
         <form onSubmit={store}>
           <div className="md-form mb-5">

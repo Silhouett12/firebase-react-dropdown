@@ -33,6 +33,11 @@
 .scroll-list-hidden {
   display: none;
 }
+
+.hidden-ref{
+  display: none;
+}
+
 .fade {
   display: flex;
 }
