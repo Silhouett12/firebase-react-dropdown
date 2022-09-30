@@ -4,17 +4,15 @@
 ## Objetivos
 
 ### `Consulta a un servicio de firebase`
-
-### `Modelo base de datos`
-
+  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/1.jpeg)
 ### `Searchbar sin texto`
-
+  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/2.jpeg)
 ### `Searchbar con texto`
-
+  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/3.jpeg)
 ### `Pop-up + nombre escrito en input + formulario editable`
-
+  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/4.jpeg)
 ### `Elemento creado en la base de datos`
-
+  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/5.jpeg)
 ## Objetivos
 
 Link a repositorio de docker = https://hub.docker.com/repository/docker/pablonicolaslm/dropdown
