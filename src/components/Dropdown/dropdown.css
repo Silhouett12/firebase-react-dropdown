@@ -8,7 +8,7 @@
 }
 
 .form-control {
-  width: 300px;
+  width: 100%;
 }
 .list-group-item , .list-group-item-action {
   width: 300px;
@@ -16,6 +16,11 @@
 .list-group-item-action:first-child {
   background-color: rgba(18, 68, 160, 0.443);
 }
+
+.search-container {
+  width: 300px;
+}
+
 .scroll-list {
   display: flex;
   height: 300px;
@@ -28,21 +33,42 @@
 .scroll-list-hidden {
   display: none;
 }
+.fade {
+  display: flex;
+}
 .modal {
-  padding-top: 10vh;
+  
+  align-items: center;
+  justify-content: center;
+}
+.modal-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+.modal-content {
+  width: 200px;
 }
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 }
+.md-form {
+  width: 80%;
+}
+.mb-5 {
+  margin-bottom: 1rem!important;
+}
+
 input {
   width: 300px;
 }
-.create-button {
-  background-color: rgb(136, 35, 35);
-}
+
 .modal-header {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }

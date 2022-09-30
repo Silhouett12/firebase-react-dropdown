@@ -110,6 +110,7 @@ const DropDown = () => {
   return (
     <div className="mainContainer">
       <h1>Searchbar dropdown</h1>
+      <div className="search-container">
       <input
         type="text"
         className="form-control"
@@ -153,8 +154,9 @@ const DropDown = () => {
           })}
         </ul>
       </div>
+      </div>
       <Modal show={openModal} onHide={() => handleModal()} className="modal" >
-        <Modal.Header closeButton="modal-header">Company</Modal.Header>
+        <Modal.Header closeButton="modal-header"><h1>Company</h1></Modal.Header>
         <form onSubmit={store}>
           <div className="md-form mb-5">
             <input
@@ -164,7 +166,7 @@ const DropDown = () => {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
-            <label data-error="wrong" data-success="right" for="form29">
+            <label>
               Nombre
             </label>
           </div>
@@ -177,7 +179,7 @@ const DropDown = () => {
               value={razón}
               onChange={(e) => setRazón(e.target.value)}
             />
-            <label data-error="wrong" data-success="right" for="form29">
+            <label >
               Razón social
             </label>
           </div>
@@ -191,7 +193,7 @@ const DropDown = () => {
               onChange={(e) => setNit(e.target.value)}
               placeholder="##-###-####"
             />
-            <label data-error="wrong" data-success="right" for="form29">
+            <label >
               Número de NIT
             </label>
           </div>
@@ -205,11 +207,10 @@ const DropDown = () => {
               onChange={(e) => setTeléfono(e.target.value)}
               placeholder="###-###-####"
             />
-            <label data-error="wrong" data-success="right" for="form29">
+            <label >
               Telefono
             </label>
           </div>
-
           <div className="md-form mb-5">
             <input
               type="number"
@@ -218,7 +219,7 @@ const DropDown = () => {
               value={código}
               onChange={(e) => setCódigo(e.target.value)}
             />
-            <label data-error="wrong" data-success="right" for="form29">
+            <label >
               Código
             </label>
           </div>
