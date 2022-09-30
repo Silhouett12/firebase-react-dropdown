@@ -98,7 +98,7 @@ const DropDown = () => {
       teléfono,
       código,
     });
-    setPageNumber(e => e + 1)
+    alert("Empresa registrada")
     setOpenModal(!openModal);
   };
 
