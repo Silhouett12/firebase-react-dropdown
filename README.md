@@ -3,11 +3,11 @@
 
 ## Objetivos
 
-### `Consulta a un servicio de firebase`
-  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/1.jpeg)
 ### `Searchbar sin texto`
-  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/2.jpeg)
+  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/1.jpeg)
 ### `Searchbar con texto`
+  ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/2.jpeg)
+### `Busqueda realizada desde el searchbar`
   ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/3.jpeg)
 ### `Pop-up + nombre escrito en input + formulario editable`
   ![Image text](https://github.com/Silhouett12/firebase-react-dropdown/blob/main/screenshots/4.jpeg)
